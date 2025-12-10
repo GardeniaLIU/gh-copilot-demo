@@ -82,8 +82,10 @@ defineEmits<{
 }>()
 
 const handleImageError = (event: Event): void => {
-  const target = event.target as HTMLImageElement
-  target.src = PLACEHOLDER_IMAGE
+  const target = event.target
+  if (target instanceof HTMLImageElement) {
+    target.src = PLACEHOLDER_IMAGE
+  }
 }
 </script>
 
