@@ -3,6 +3,7 @@
     <header class="header">
       <h1>🎵 Album Collection</h1>
       <p>Discover amazing music albums</p>
+      <CartIcon :count="itemCount" @click="isCartOpen = true" />
     </header>
 
     <main class="main">
@@ -24,6 +25,15 @@
         />
       </div>
     </main>
+
+    <CartModal 
+      :is-open="isCartOpen"
+      :items="cartItems"
+      :total="totalPrice"
+      @close="isCartOpen = false"
+      @remove="removeFromCart"
+      @update-quantity="updateQuantity"
+    />
   </div>
 </template>
 
@@ -31,11 +41,17 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import AlbumCard from './components/AlbumCard.vue'
+import CartIcon from './components/CartIcon.vue'
+import CartModal from './components/CartModal.vue'
+import { useCart } from './composables/useCart'
 import type { Album } from './types/album'
 
 const albums = ref<Album[]>([])
 const loading = ref<boolean>(true)
 const error = ref<string | null>(null)
+const isCartOpen = ref<boolean>(false)
+
+const { cartItems, itemCount, totalPrice, removeFromCart, updateQuantity } = useCart()
 
 const fetchAlbums = async (): Promise<void> => {
   try {
@@ -66,6 +82,13 @@ onMounted(() => {
   text-align: center;
   margin-bottom: 3rem;
   color: white;
+  position: relative;
+}
+
+.header :deep(.cart-icon) {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .header h1 {
