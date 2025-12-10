@@ -45,9 +45,10 @@ export function useCart() {
   })
 
   const totalPrice = computed(() => {
-    return cartItems.value.reduce((total, item) => {
-      return total + (item.album.price * item.quantity)
+    const total = cartItems.value.reduce((sum, item) => {
+      return sum + (item.album.price * item.quantity)
     }, 0)
+    return parseFloat(total.toFixed(2))
   })
 
   const isInCart = (albumId: number): boolean => {

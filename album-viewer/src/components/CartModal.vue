@@ -65,6 +65,8 @@
 <script setup lang="ts">
 import type { CartItem } from '../types/cart'
 
+const PLACEHOLDER_IMAGE = 'https://via.placeholder.com/80x80/667eea/white?text=Album'
+
 interface Props {
   isOpen: boolean
   items: CartItem[]
@@ -81,7 +83,7 @@ defineEmits<{
 
 const handleImageError = (event: Event): void => {
   const target = event.target as HTMLImageElement
-  target.src = 'https://via.placeholder.com/80x80/667eea/white?text=Album'
+  target.src = PLACEHOLDER_IMAGE
 }
 </script>
 

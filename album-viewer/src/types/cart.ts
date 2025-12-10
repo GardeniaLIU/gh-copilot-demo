@@ -4,9 +4,3 @@ export interface CartItem {
   album: Album
   quantity: number
 }
-
-export interface CartState {
-  items: CartItem[]
-  total: number
-  itemCount: number
-}
